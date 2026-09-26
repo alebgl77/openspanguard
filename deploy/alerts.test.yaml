@@ -1,0 +1,101 @@
+rule_files:
+  - alerts.yaml
+evaluation_interval: 15s
+tests:
+  - name: Low relevance sustains two minutes then recovers
+    interval: 15s
+    input_series:
+      - series: 'up{job="openspanguard",instance="gateway"}'
+        values: '1+0x41'
+      - series: 'openspanguard_spans_total{cohort="canary"}'
+        values: '0+5x41'
+      - series: 'openspanguard_evaluations_total{cohort="canary",status="ok"}'
+        values: '0+5x41'
+      - series: 'openspanguard_quality_score_count{cohort="canary"}'
+        values: '0+5x41'
+      - series: 'openspanguard_quality_score_sum{cohort="canary"}'
+        values: '0+1x20 25+5x20'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: OpenSpanGuardLowRelevance
+        exp_alerts: []
+      - eval_time: 4m
+        alertname: OpenSpanGuardLowRelevance
+        exp_alerts:
+          - exp_labels:
+              cohort: canary
+              severity: warning
+            exp_annotations:
+              summary: Sustained low relevance in a sufficiently covered cohort
+      - eval_time: 10m
+        alertname: OpenSpanGuardLowRelevance
+        exp_alerts: []
+  - name: Low sample volume cannot page
+    interval: 15s
+    input_series:
+      - series: 'openspanguard_spans_total{cohort="demo"}'
+        values: '0+0.5x40'
+      - series: 'openspanguard_evaluations_total{cohort="demo",status="ok"}'
+        values: '0+0.5x40'
+      - series: 'openspanguard_quality_score_count{cohort="demo"}'
+        values: '0+0.5x40'
+      - series: 'openspanguard_quality_score_sum{cohort="demo"}'
+        values: '0+0.1x40'
+    alert_rule_test:
+      - eval_time: 10m
+        alertname: OpenSpanGuardLowRelevance
+        exp_alerts: []
+  - name: Coverage blocks relevance and alerts on missing success series
+    interval: 15s
+    input_series:
+      - series: 'openspanguard_spans_total{cohort="canary"}'
+        values: '0+5x40'
+      - series: 'openspanguard_evaluations_total{cohort="canary",status="ok"}'
+        values: '0+2x40'
+      - series: 'openspanguard_quality_score_count{cohort="canary"}'
+        values: '0+2x40'
+      - series: 'openspanguard_quality_score_sum{cohort="canary"}'
+        values: '0+0.4x40'
+      - series: 'openspanguard_spans_total{cohort="demo"}'
+        values: '0+5x40'
+    alert_rule_test:
+      - eval_time: 2m
+        alertname: OpenSpanGuardLowCoverage
+        exp_alerts: []
+      - eval_time: 5m
+        alertname: OpenSpanGuardLowRelevance
+        exp_alerts: []
+      - eval_time: 5m
+        alertname: OpenSpanGuardLowCoverage
+        exp_alerts:
+          - exp_labels:
+              cohort: canary
+              severity: warning
+            exp_annotations:
+              summary: Fewer than 80 percent of observed spans are evaluated successfully
+          - exp_labels:
+              cohort: demo
+              severity: warning
+            exp_annotations:
+              summary: Fewer than 80 percent of observed spans are evaluated successfully
+  - name: Quiet service is informational and recovers with traffic
+    interval: 15s
+    input_series:
+      - series: 'up{job="openspanguard",instance="gateway"}'
+        values: '1+0x40'
+      - series: 'openspanguard_spans_total{cohort="default"}'
+        values: '0+0x16 5+5x24'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: OpenSpanGuardNoData
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: OpenSpanGuardNoData
+        exp_alerts:
+          - exp_labels:
+              severity: info
+            exp_annotations:
+              summary: No recent generation spans or gateway unavailable
+      - eval_time: 6m
+        alertname: OpenSpanGuardNoData
+        exp_alerts: []

@@ -1,0 +1,41 @@
+groups:
+  - name: openspanguard
+    interval: 15s
+    rules:
+      - alert: OpenSpanGuardLowRelevance
+        expr: |
+          (sum by (cohort) (rate(openspanguard_quality_score_sum[5m]))
+            / sum by (cohort) (rate(openspanguard_quality_score_count[5m])) < 0.6)
+          and on (cohort)
+          (sum by (cohort) (increase(openspanguard_quality_score_count[5m])) >= 20)
+          and on (cohort)
+          (sum by (cohort) (rate(openspanguard_evaluations_total{status="ok"}[5m]))
+            / sum by (cohort) (rate(openspanguard_spans_total[5m])) >= 0.8)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Sustained low relevance in a sufficiently covered cohort
+      - alert: OpenSpanGuardLowCoverage
+        expr: |
+          (
+            (
+              sum by (cohort) (rate(openspanguard_evaluations_total{status="ok"}[5m]))
+              or on (cohort) (0 * sum by (cohort) (rate(openspanguard_spans_total[5m])))
+            )
+            / sum by (cohort) (rate(openspanguard_spans_total[5m]))
+          ) < 0.8
+          and on (cohort)
+          (sum by (cohort) (increase(openspanguard_spans_total[5m])) >= 20)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Fewer than 80 percent of observed spans are evaluated successfully
+      - alert: OpenSpanGuardNoData
+        expr: up{job="openspanguard"} == 0 or absent(up{job="openspanguard"}) or (sum(increase(openspanguard_spans_total[10m])) == 0) or absent(openspanguard_spans_total)
+        for: 2m
+        labels:
+          severity: info
+        annotations:
+          summary: No recent generation spans or gateway unavailable
