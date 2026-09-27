@@ -162,4 +162,3 @@ if (failures.length) {
 } else {
   console.log(`Docs check passed: ${documents.length} documents, ${checkedLinks} local links, ${assets.length} assets (${assetBytes} bytes).`);
 }
-
