@@ -1,0 +1,72 @@
+name: Integration report
+description: Share a successful integration or a reproducible setup blocker using synthetic data.
+title: '[Integration]: '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for trying the Developer Preview. Report only what you observed.
+        Never include credentials, customer prompts/responses, private endpoints or unsanitized traces.
+        For sensitive issues, follow https://github.com/alebgl77/openspanguard/blob/main/SECURITY.md.
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Integration outcome
+      options:
+        - Successful synthetic integration
+        - Setup or installation blocked
+        - Export or evaluation behavior differs from expectations
+        - Permissioned canary feedback (sanitized)
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: OpenSpanGuard version or commit
+      placeholder: Release tag or commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Runtime and integration environment
+      description: OS, Node/npm versions, Docker/Compose if used, exporter package/version and transport, and collector/backend.
+    validations:
+      required: true
+  - type: dropdown
+    id: evaluator
+    attributes:
+      label: Evaluator mode
+      options:
+        - disabled
+        - demo (synthetic)
+        - jev (remote)
+        - Not reached or unknown
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction and sanitized configuration
+      description: Include commands, non-secret relevant settings and checks actually run. Describe content capture without pasting real content. Omit keys and private URLs.
+    validations:
+      required: true
+  - type: textarea
+    id: observation
+    attributes:
+      label: Expected and observed result
+      description: Include response status, exported evaluation status, coverage or sanitized error text when available. Distinguish demo scores from live evaluation.
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: Most useful improvement or remaining constraint
+      description: What blocked progress or would change an operational decision? Include any workaround.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Safe to share publicly
+      options:
+        - label: I removed credentials, real prompts/responses, personal data and private infrastructure details from this report.
+          required: true

@@ -2,6 +2,10 @@
   "name": "openspanguard",
   "version": "0.1.0",
   "description": "OTLP/HTTP JSON enrichment gateway for AI agent quality signals",
+  "repository": { "type": "git", "url": "git+https://github.com/alebgl77/openspanguard.git" },
+  "homepage": "https://alebgl77.github.io/openspanguard/",
+  "bugs": { "url": "https://github.com/alebgl77/openspanguard/issues" },
+  "keywords": ["opentelemetry", "otlp", "ai-agents", "evaluation", "observability", "prometheus"],
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -14,7 +18,8 @@
     "start": "node dist/src/index.js",
     "test": "tsx --test test/*.test.ts",
     "demo": "tsx examples/demo.ts",
-    "benchmark": "tsx examples/benchmark.ts"
+    "benchmark": "tsx examples/benchmark.ts",
+    "check:docs": "node scripts/check-docs.mjs"
   },
   "dependencies": {
     "@opentelemetry/api": "1.9.1",

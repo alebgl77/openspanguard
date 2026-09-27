@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /openspanguard/
+
+Sitemap: https://alebgl77.github.io/openspanguard/sitemap.xml

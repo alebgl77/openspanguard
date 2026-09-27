@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'self'; form-action 'none'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; font-src 'self'">
+  <title>OpenSpanGuard — Make AI quality observable</title>
+  <meta name="description" content="An open-source OTLP/HTTP JSON gateway for AI quality signals. Enrich completed generation traces, monitor evaluation coverage, and explore the offline demo.">
+  <meta name="theme-color" content="#0b1220">
+  <link rel="canonical" href="https://alebgl77.github.io/openspanguard/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OpenSpanGuard">
+  <meta property="og:title" content="OpenSpanGuard — Make AI quality observable">
+  <meta property="og:description" content="Quality signals on your original AI traces. Explore an open-source OTLP/HTTP JSON gateway, an offline demo, and editable architecture diagrams.">
+  <meta property="og:url" content="https://alebgl77.github.io/openspanguard/">
+  <meta property="og:image" content="https://alebgl77.github.io/openspanguard/assets/social-preview.png">
+  <meta property="og:image:width" content="1774">
+  <meta property="og:image:height" content="887">
+  <meta property="og:image:alt" content="OpenSpanGuard: Make AI quality observable. Open source, developer preview.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenSpanGuard — Make AI quality observable">
+  <meta name="twitter:description" content="Quality signals on your original AI traces. An open-source OTLP/HTTP JSON enrichment gateway for AI engineers.">
+  <meta name="twitter:image" content="https://alebgl77.github.io/openspanguard/assets/social-preview.png">
+  <meta name="twitter:image:alt" content="OpenSpanGuard: Make AI quality observable. Open source, developer preview.">
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#" aria-label="OpenSpanGuard home"><span class="brand-mark" aria-hidden="true">⌁</span> OpenSpanGuard</a>
+    <nav aria-label="Main navigation">
+      <a href="#architecture">Architecture</a>
+      <a href="#quality">Quality loop</a>
+      <a href="https://github.com/alebgl77/openspanguard/tree/main/docs">Docs <span aria-hidden="true">↗</span></a>
+      <a class="language-link" href="https://github.com/alebgl77/openspanguard/blob/main/README.fr.md" lang="fr" hreflang="fr" aria-label="Lire la documentation en français">FR</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Open source / Developer preview</p>
+        <h1 id="hero-heading">Make AI quality <em>observable.</em></h1>
+        <p class="hero-description">Quality signals on your original AI traces. Evaluate completed generation spans, keep their identity, and bring the results into your observability stack.</p>
+        <div class="actions">
+          <a class="button button-primary" href="#demo">Run the offline demo <span aria-hidden="true">↘</span></a>
+          <a class="button button-outline" href="https://github.com/alebgl77/openspanguard">View on GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="hero-note">OTLP/HTTP JSON <span aria-hidden="true">·</span> Node.js 22+ <span aria-hidden="true">·</span> Apache-2.0</p>
+      </div>
+      <figure class="hero-art">
+        <div class="hero-image-crop"><img src="assets/openspanguard-hero.png" width="1774" height="887" alt="AI traces connect through a central gateway to quality charts." fetchpriority="high"></div>
+        <figcaption><span class="mono">01 / THE EXPORT PATH</span><span>Same trace. More context.</span></figcaption>
+      </figure>
+    </section>
+
+    <div class="principles wrap" aria-label="Design principles">
+      <p><span class="principle-index">01</span> Preserve trace identity</p>
+      <p><span class="principle-index">02</span> Make coverage visible</p>
+      <p><span class="principle-index">03</span> Calibrate before paging</p>
+    </div>
+
+    <section class="paper-section" id="architecture" aria-labelledby="architecture-heading">
+      <div class="wrap section-space">
+        <div class="section-heading">
+          <p class="eyebrow">The architecture</p>
+          <h2 id="architecture-heading">Your traces already tell a story.<br><em>Add the quality context.</em></h2>
+          <p class="section-intro">OpenSpanGuard sits between an OpenTelemetry SDK and your collector. Evaluation happens during export, with the original trace IDs, span IDs, and timestamps preserved.</p>
+        </div>
+        <ol class="flow-notes">
+          <li><span class="step-number">01 / CAPTURE</span><h3>Finish the generation</h3><p>Explicitly capture supported prompt and response content. An asynchronous SDK span processor exports completed spans without waiting for scoring on the generation path.</p></li>
+          <li><span class="step-number">02 / ENRICH</span><h3>Evaluate in the gateway</h3><p>Eligible spans receive quality signals. Recognized content fields are removed before forwarding. Evaluation and delivery still add export latency.</p></li>
+          <li><span class="step-number">03 / OBSERVE</span><h3>Use your existing stack</h3><p>Forward enriched traces to the collector. Prometheus scrapes gateway metrics; Grafana queries Prometheus and Tempo to connect quality with trace context.</p></li>
+        </ol>
+        <figure class="diagram-frame">
+          <a class="diagram-image-link" href="assets/architecture.png" aria-label="Open the full-size architecture diagram"><img src="assets/architecture.png" width="1600" height="1000" loading="lazy" alt="OpenSpanGuard architecture: completed AI spans flow through the gateway to a collector and Tempo. Optional Jev evaluation, Prometheus scraping, Grafana queries, and Alertmanager routing are shown."></a>
+          <figcaption><span><span class="figure-label">FIG. 01</span> From completed generation to observable quality</span><span class="figure-links"><a href="assets/architecture.png">Open full size ↗</a><a href="assets/architecture.drawio" download>Editable .drawio ↓</a></span></figcaption>
+        </figure>
+        <details class="text-equivalent">
+          <summary>Read the architecture as text</summary>
+          <p>An AI agent ends a generation span. Its OpenTelemetry SDK asynchronously sends OTLP/HTTP JSON to OpenSpanGuard. The gateway can call Jev’s score and noul primitives when remote content has been explicitly authorized. It enriches exported spans, removes recognized content fields, and forwards to an OpenTelemetry Collector, which writes to Tempo.</p>
+          <p>Prometheus pulls the gateway’s metrics. Grafana queries Prometheus for metrics and Tempo for traces. Prometheus sends firing alerts to Alertmanager, which routes them to a webhook.</p>
+          <p>Raw content is present in incoming telemetry and process memory before redaction. Unrecognized custom fields can retain content. Application-side minimization and operator review are required.</p>
+        </details>
+        <div class="section-footnote"><span class="note-label">A deliberate boundary</span><p>Remote Jev evaluation requires explicit content capture and <code>OSG_ALLOW_REMOTE_CONTENT=true</code>. Review what you send before enabling it. <a href="https://github.com/alebgl77/openspanguard/blob/main/docs/integration.md">Read the integration guide ↗</a></p></div>
+      </div>
+    </section>
+
+    <section class="demo-section wrap section-space" id="demo" aria-labelledby="demo-heading">
+      <div class="demo-copy">
+        <p class="eyebrow">Start with evidence</p>
+        <h2 id="demo-heading">Clone. Run.<br><em>Follow a trace.</em></h2>
+        <p>The offline demo checks the complete export path with synthetic scores and a loopback collector. After dependencies are installed, it needs no API key, Docker, or internet.</p>
+        <ul class="check-list">
+          <li>Original IDs and timestamps survive forwarding</li>
+          <li>Concurrent replay suppression and missing-content coverage</li>
+          <li>Content redaction and streaming event/token handling</li>
+          <li>A real OpenTelemetry HTTP/JSON exporter</li>
+        </ul>
+        <p class="demo-result">Look for <code>"result": "pass"</code> in the final JSON.</p>
+      </div>
+      <div class="terminal">
+        <div class="terminal-header"><span class="mono">TERMINAL / NODE.JS 22+</span><button class="copy-button" type="button" data-copy-target="demo-commands" hidden>Copy commands</button></div>
+        <pre tabindex="0" aria-label="Commands to clone, build, and run the offline demo"><code id="demo-commands">git clone https://github.com/alebgl77/openspanguard.git
+cd openspanguard
+npm ci
+npm run build
+npm run demo</code></pre>
+        <div class="terminal-footer"><span class="status-dot" aria-hidden="true"></span> Local demo · every score is synthetic</div>
+        <p class="copy-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="stack-link"><span class="mono">NEXT / SEE THE SIGNALS</span><p>Bring up the local Collector, Tempo, Prometheus, Grafana, and Alertmanager stack with Docker Compose. <a href="https://github.com/alebgl77/openspanguard/blob/main/docs/deployment.md">Open the deployment guide ↗</a></p></div>
+    </section>
+
+    <section class="paper-section" id="quality" aria-labelledby="quality-heading">
+      <div class="wrap section-space">
+        <div class="section-heading split-heading">
+          <div><p class="eyebrow">The quality loop</p><h2 id="quality-heading">A low score is a signal.<br><em>Context makes it useful.</em></h2></div>
+          <p class="section-intro">The example relevance alert only fires when a cohort has enough evaluations, sufficient coverage, and sustained low mean relevance. The thresholds are starting values to calibrate for your workload.</p>
+        </div>
+        <div class="threshold-strip" aria-label="Example low relevance alert thresholds">
+          <div><strong>≥ 20</strong><span>evaluations in 5 minutes</span></div>
+          <div><strong>≥ 80%</strong><span>successful evaluation coverage</span></div>
+          <div><strong>&lt; 0.60</strong><span>mean relevance over 5 minutes</span></div>
+          <div><strong>2 min</strong><span>all conditions held</span></div>
+        </div>
+        <figure class="diagram-frame">
+          <a class="diagram-image-link" href="assets/quality-loop.png" aria-label="Open the full-size quality loop diagram"><img src="assets/quality-loop.png" width="1600" height="1000" loading="lazy" alt="Quality loop: cohort sample, coverage, and relevance conditions must hold for two minutes before Alertmanager routes a webhook. Low coverage and missing data are monitored separately."></a>
+          <figcaption><span><span class="figure-label">FIG. 02</span> From cohort evidence to an actionable alert</span><span class="figure-links"><a href="assets/quality-loop.png">Open full size ↗</a><a href="assets/quality-loop.drawio" download>Editable .drawio ↓</a></span></figcaption>
+        </figure>
+        <details class="text-equivalent">
+          <summary>Read the exact alert conditions</summary>
+          <p>For each cohort, the low-relevance rule requires a 5-minute score-count increase of at least 20, a 5-minute successful-evaluation rate divided by the observed-generation-span rate of at least 0.8, and a score-sum rate divided by score-count rate below 0.6. All three conditions must hold for 2 minutes. Prometheus evaluates this rule group every 15 seconds.</p>
+          <p>The separate low-coverage rule requires coverage below 0.8 and at least 20 observed spans in 5 minutes, held for 2 minutes. Missing successful-evaluation series are treated as zero for observed cohorts. The informational no-data rule covers an unavailable or missing scrape target, zero span increase over 10 minutes, or a missing span counter, held for 2 minutes; a quiet service can trigger it.</p>
+          <p><a href="https://github.com/alebgl77/openspanguard/blob/main/deploy/alerts.yaml">Inspect the PromQL source ↗</a></p>
+        </details>
+        <div class="signal-notes"><p><strong>Coverage is part of the result.</strong> Missing evaluations do not imply good quality. Coverage records the first observed outcome for each identity within a process-local window. A later retry can succeed without changing coverage for that window.</p><p><strong>Scores have limits.</strong> Relevance does not prove factual correctness. Evaluator confidence is not truth, and the Jev <code>noul</code> answer is a rubric-specific nonsense probability, not a general hallucination probability. <a href="https://github.com/alebgl77/openspanguard/blob/main/docs/measurement.md">Read measurement limits ↗</a></p></div>
+      </div>
+    </section>
+
+    <section class="preview-section wrap section-space" aria-labelledby="preview-heading">
+      <div class="section-heading"><p class="eyebrow">Built in the open</p><h2 id="preview-heading">A useful preview.<br><em>With visible boundaries.</em></h2><p class="section-intro">Explore the implementation, reproduce the demo, and validate a canary before relying on these signals in production.</p></div>
+      <div class="preview-columns">
+        <div><h3>Available today</h3><ul><li>OTLP/HTTP JSON enrichment with preserved trace identity</li><li>Synthetic offline evaluation and opt-in remote Jev scoring</li><li>Bounded evaluation queue and process-local deduplication</li><li>Cohort quality, coverage, and export-health metrics</li><li>A local observability stack and example alert rules</li></ul></div>
+        <div><h3>Know the boundaries</h3><ul><li>JSON only; protobuf export is not supported</li><li>No disk queue or exactly-once delivery guarantee</li><li>Cache expiry, eviction, restarts, or replicas can repeat evaluation</li><li>Known content fields are removed; custom fields need review</li><li>Live Jev accuracy and latency have not been benchmarked</li></ul></div>
+      </div>
+      <p class="preview-links"><a href="https://github.com/alebgl77/openspanguard/blob/main/docs/production-checklist.md">Production checklist ↗</a><a href="https://github.com/alebgl77/openspanguard/blob/main/docs/roadmap.md">Roadmap ↗</a><a href="https://github.com/alebgl77/openspanguard/blob/main/SECURITY.md">Security policy ↗</a></p>
+    </section>
+
+    <section class="contribute-section" aria-labelledby="contribute-heading"><div class="wrap contribute-inner"><div><p class="eyebrow">Help shape the next release</p><h2 id="contribute-heading">Bring your workload.<br><em>Make the evidence better.</em></h2><p>Reproducible integrations, evaluation feedback, and clear bug reports help turn this preview into a stronger tool.</p></div><div class="contribute-actions"><a class="button button-primary" href="https://github.com/alebgl77/openspanguard/blob/main/CONTRIBUTING.md">Contribute on GitHub ↗</a><a class="text-link" href="https://github.com/alebgl77/openspanguard/blob/main/docs/media-kit.md">Download the media kit ↗</a><a class="text-link" href="https://github.com/alebgl77/openspanguard/blob/main/docs/assets/diagrams.md">Edit the architecture diagrams ↗</a></div></div></section>
+  </main>
+
+  <footer class="site-footer wrap"><div><a class="wordmark" href="#">OpenSpanGuard</a><p>Make AI quality observable.</p><p class="footer-small">Independent open-source project. No official OpenTelemetry affiliation.</p></div><nav aria-label="Footer navigation"><a href="https://github.com/alebgl77/openspanguard">GitHub</a><a href="https://github.com/alebgl77/openspanguard/issues">Issues</a><a href="https://github.com/alebgl77/openspanguard/blob/main/LICENSE">Apache-2.0</a><a href="https://github.com/alebgl77/openspanguard/blob/main/README.fr.md" lang="fr" hreflang="fr">Français</a></nav></footer>
+</body>
+</html>

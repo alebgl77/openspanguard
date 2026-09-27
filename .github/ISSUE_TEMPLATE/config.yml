@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and discussions
+    url: https://github.com/alebgl77/openspanguard/discussions
+    about: Ask setup questions or discuss evaluation and observability workflows.
+  - name: Troubleshooting guide
+    url: https://github.com/alebgl77/openspanguard/blob/main/docs/troubleshooting.md
+    about: Check transport, authentication, evaluator configuration and missing metrics.
+  - name: Private security reporting
+    url: https://github.com/alebgl77/openspanguard/security/advisories/new
+    about: Report vulnerabilities privately; never post credentials or customer content.
