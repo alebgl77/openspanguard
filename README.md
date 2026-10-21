@@ -147,3 +147,7 @@ Cache and deduplication are bounded and process-local. Expiry, eviction, restart
 To verify a change, run `npm run typecheck`, `npm test`, `npm run build` and `npm run demo`. `npm run benchmark -- 200` reports synthetic loopback measurements, not live Jev accuracy or production capacity.
 
 Independent open-source project; no official OpenTelemetry, Grafana or Jev endorsement is implied. [Apache-2.0 license](LICENSE) · [Security](SECURITY.md) · [Code of conduct](CODE_OF_CONDUCT.md).
+
+## Author
+
+Built and maintained by **[Alexandre Beguel](https://github.com/alebgl77)**, Agentic AI Architect and external CAIO based in Paris. He works on production GenAI, LLMOps, LLM FinOps and evidence-first AI governance. [beguel.com](https://beguel.com/) · [LinkedIn](https://www.linkedin.com/in/beguel/) · [Profile in English, French and Spanish](https://alebgl77.github.io/)

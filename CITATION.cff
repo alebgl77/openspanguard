@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "OpenSpanGuard"
+abstract: >-
+  OTLP/HTTP JSON enrichment gateway that evaluates completed generation spans,
+  preserves original trace and span IDs and timestamps, and exposes evaluation
+  coverage alongside quality scores in Prometheus and Grafana.
+authors:
+  - family-names: "Beguel"
+    given-names: "Alexandre"
+    alias: "alebgl77"
+    website: "https://beguel.com/"
+license: Apache-2.0
+repository-code: "https://github.com/alebgl77/openspanguard"
+url: "https://github.com/alebgl77/openspanguard"
+keywords:
+  - llm-observability
+  - llm-evaluation
+  - opentelemetry
+  - genai
+  - quality-monitoring
+  - llmops
+  - prometheus
+  - grafana

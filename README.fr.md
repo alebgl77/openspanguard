@@ -78,3 +78,7 @@ La documentation technique de référence est en anglais : [intégration](docs/i
 Partagez un retour dans les [Discussions](https://github.com/alebgl77/openspanguard/discussions) ou consultez le guide [Contribuer](CONTRIBUTING.md). Le [kit de lancement](docs/launch-kit.md) propose des textes FR/EN et le [kit média](docs/media-kit.md) rassemble les visuels.
 
 Projet indépendant, sans affiliation officielle ni soutien revendiqué d'OpenTelemetry, Grafana ou Jev. [Licence Apache-2.0](LICENSE) · [Sécurité](SECURITY.md) · [Code de conduite](CODE_OF_CONDUCT.md).
+
+## Auteur
+
+Conçu et maintenu par **[Alexandre Beguel](https://github.com/alebgl77)**, architecte IA agentique et CAIO externalisé basé à Paris. Il travaille sur l'IA générative en production, le LLMOps, le FinOps des LLM et la gouvernance de l'IA fondée sur les preuves. [beguel.com](https://beguel.com/) · [LinkedIn](https://www.linkedin.com/in/beguel/) · [Profil en français, anglais et espagnol](https://alebgl77.github.io/fr/)
