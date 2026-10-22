@@ -38,6 +38,8 @@ npm run demo
 
 Once dependencies are installed, the demo runs with loopback services and requires no provider API key or Docker. It checks original IDs/timestamps, concurrent replay suppression, missing-content coverage, recognized-content redaction, a real OpenTelemetry JSON exporter, and streaming handling. The final JSON contains `"result": "pass"`. **All demo scores are synthetic.**
 
+See the [recorded offline case study](docs/evidence/2026-10-22-offline-http-json.md) for the tested commit, commands, 81 passing tests, observed demo output and limits.
+
 If PowerShell blocks `npm.ps1`, use `npm.cmd` for the same commands. See [troubleshooting](docs/troubleshooting.md) if setup fails.
 
 ## Run the local stack
