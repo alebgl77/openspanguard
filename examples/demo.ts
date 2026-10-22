@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { BasicTracerProvider, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { AlwaysOnSampler, BasicTracerProvider, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { buildServer } from '../src/server.js';
 import { loadConfig } from '../src/config.js';
@@ -37,6 +37,8 @@ try {
   assert.equal(completed.outputTokens, 2);
 
   provider = new BasicTracerProvider({
+    // This synthetic fixture must be exported even when the host samples real traces.
+    sampler: new AlwaysOnSampler(),
     spanProcessors: [new SimpleSpanProcessor(new OTLPTraceExporter({ url: `${base}/v1/traces` }))],
   });
   const span = provider.getTracer('openspanguard-demo').startSpan('chat SDK-stream');
