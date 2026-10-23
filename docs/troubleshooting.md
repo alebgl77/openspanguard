@@ -2,6 +2,8 @@
 
 Start with `npm run demo`. A final `"result": "pass"` verifies the synthetic loopback path independently of Docker or a remote evaluator. For the Compose stack, run `docker compose ps` and `node examples/stack-smoke.mjs`. Use [configuration](configuration.md) to compare actual environment variables with supported values.
 
+The demo's local SDK provider explicitly samples its synthetic span so an inherited `OTEL_TRACES_SAMPLER` cannot discard the fixture. Application integrations use the sampling policy of their own provider; inspect that policy if spans never reach the gateway.
+
 ## Install or startup fails
 
 - Use Node.js 22 or 24; check `node --version` and `npm --version`.

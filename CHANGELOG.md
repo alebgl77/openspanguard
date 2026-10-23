@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Make the synthetic demo's SDK sampling explicit so inherited OpenTelemetry sampling does not discard its fixture.
+
 ## 0.1.0 — Developer preview
 
 - OTLP/HTTP JSON gateway retaining original span identity.

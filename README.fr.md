@@ -30,6 +30,8 @@ npm run demo
 
 Après installation des dépendances, la démo utilise des services en boucle locale, sans clé de fournisseur ni Docker. Elle vérifie les identifiants et horodatages, la suppression des évaluations répétées pendant la fenêtre de cache, les spans sans contenu, la suppression des champs de contenu reconnus et l'exporteur OpenTelemetry JSON. Le JSON final contient `"result": "pass"`. **Tous les scores de démo sont synthétiques.**
 
+L'[étude de cas locale reproductible](docs/evidence/2026-10-22-offline-http-json.md) documente le commit testé, les commandes, les 81 tests réussis, le résultat observé de la démo et ses limites (en anglais).
+
 Si PowerShell bloque `npm.ps1`, utilisez `npm.cmd` avec les mêmes arguments.
 
 ## Lancer la stack locale
