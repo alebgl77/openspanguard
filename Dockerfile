@@ -1,4 +1,4 @@
-FROM node:22.23.2-alpine AS build
+FROM node:22.23.4-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -8,7 +8,7 @@ COPY examples ./examples
 COPY test ./test
 RUN npm run build && npm prune --omit=dev
 
-FROM node:22.23.2-alpine AS runtime
+FROM node:22.23.4-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=build --chown=node:node /app/node_modules ./node_modules

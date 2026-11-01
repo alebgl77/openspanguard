@@ -31,7 +31,7 @@ services:
       - tempo
 
   tempo:
-    image: grafana/tempo:2.10.8
+    image: grafana/tempo:2.10.10
     command: [-config.file=/etc/tempo.yaml]
     volumes:
       - ./deploy/tempo.yaml:/etc/tempo.yaml:ro
@@ -41,7 +41,7 @@ services:
       - 127.0.0.1:3200:3200
 
   prometheus:
-    image: prom/prometheus:v3.15.0
+    image: prom/prometheus:v3.15.1
     command:
       - --config.file=/etc/prometheus/prometheus.yaml
       - --storage.tsdb.retention.time=24h
@@ -66,7 +66,7 @@ services:
       - webhook
 
   webhook:
-    image: node:22.23.2-alpine
+    image: node:22.23.3-alpine
     user: node
     working_dir: /app
     command: [node, receiver.mjs]
@@ -79,7 +79,7 @@ services:
     cap_drop: [ALL]
 
   grafana:
-    image: grafana/grafana:13.2.2
+    image: grafana/grafana:13.2.4
     environment:
       GF_AUTH_ANONYMOUS_ENABLED: 'true'
       GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
