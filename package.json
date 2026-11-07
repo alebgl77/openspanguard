@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@opentelemetry/api": "1.9.1",
-    "fastify": "5.12.7",
+    "fastify": "5.12.8",
     "@prometheus-io/client": "0.16.1"
   },
   "devDependencies": {
